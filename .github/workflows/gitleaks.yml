@@ -1,4 +1,4 @@
-name: Gitleaks Scan
+name: Gitleaks
 
 on:
   push:
@@ -6,14 +6,10 @@ on:
   workflow_dispatch:
 
 jobs:
-  gitleaks:
+  scan:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      security-events: write   
-      actions: read
     steps:
-      - name: Checkout repo 
+      - name: Checkout (cu tot istoricul)
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
@@ -21,15 +17,10 @@ jobs:
       - name: Run Gitleaks
         uses: zricethezav/gitleaks-action@v2
         with:
-          args: detect --source . --log-opts="--all" --redact --report-format sarif --report-path gitleaks.sarif
+          args: detect --source . --log-opts="--all" --redact --report-format json --report-path gitleaks-report.json
 
-      - name: Upload SARIF to Code Scanning
-        uses: github/codeql-action/upload-sarif@v3
-        with:
-          sarif_file: gitleaks.sarif
-
-      - name: Save SARIF as Artifact
+      - name: Upload report (artifact)
         uses: actions/upload-artifact@v4
         with:
-          name: gitleaks-sarif
-          path: gitleaks.sarif
+          name: gitleaks-report
+          path: gitleaks-report.json
