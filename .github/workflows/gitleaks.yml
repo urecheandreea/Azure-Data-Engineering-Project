@@ -1,27 +1,13 @@
-name: Gitleaks
-
-on:
-  push:
-  pull_request:
-  workflow_dispatch:
-
+name: gitleaks
+on: [pull_request, push, workflow_dispatch]
 jobs:
   scan:
+    name: gitleaks
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout (cu tot istoricul)
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-
-      - name: Run Gitleaks (JSON artifact)
-        uses: zricethezav/gitleaks-action@v2
-        with:
-          args: detect --source . --no-git --redact --report-format json --report-path gitleaks-report.json
-
-
-      - name: Upload report (artifact)
-        uses: actions/upload-artifact@v4
-        with:
-          name: gitleaks-report
-          path: gitleaks-report.json
+      - uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
