@@ -6,8 +6,7 @@
 		"type": "FileServer",
 		"typeProperties": {
 			"host": "C:\\ADF_project",
-			"userId": "andre\\andreea",
-			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiJlMTZhZWIyYS00OGQxLTRkYzYtYmJlMS1jY2MxYTcxMzcxMjciLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+			"userId": "<username>",
 		},
 		"connectVia": {
 			"referenceName": "andreea-SelfHosted",
